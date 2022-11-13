@@ -15,18 +15,20 @@ galleryItems.forEach(photo => {
     a.innerHTML = img.outerHTML;
     markupArr.push(a.outerHTML);
 })
+let instance;
 divGallery.addEventListener("click", (event) => {
     if (event.target.nodeName !== "IMG") return;
     event.preventDefault();
     const origPhotoDir = event.target.dataset.source;
-    const instance = basicLightbox.create(`
+    instance = basicLightbox.create(`
     <img src=${origPhotoDir} width="800" height="600">
     `)
     instance.show()
-    document.addEventListener("keydown", event => {
-        if (event.key !== "Escape") return;
-        instance.close();
-      });
 })
+document.addEventListener("keydown", event => {
+    if (event.key !== "Escape") return;
+    instance.close();
+  });
+
 markup = markupArr.join("");
 divGallery.innerHTML = markup;
